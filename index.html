@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dictionary mark — design examples</title>
+<style>
+  :root { --ink: #212529; --page: #ffffff; --muted: #6b7280; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f4f6; color: var(--ink);
+         font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  header { padding: 28px 24px 12px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  header p { margin: 4px 0; color: #374151; max-width: 70ch; }
+  main { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
+  .row { margin: 22px 0 30px; }
+  .rowhead { margin-bottom: 8px; }
+  .tag { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+  .viewport { background: var(--page); border: 1px solid #d1d5db; border-radius: 6px;
+              overflow: hidden; max-width: 100%; }
+  .page { padding: 18px 20px; font-family: Literata, Georgia, "Times New Roman", serif;
+          color: var(--ink); text-align: justify; }
+  .page p { margin: 0; }
+  /* the read-aloud sentence: 2px solid, at the bottom of the inline content box */
+  .ral { border-bottom: 2px solid var(--ink); }
+  /* dictionary marks are drawn on the inline content box, like the real 24px decoration box */
+  .dw { position: relative; }
+  .c1{background-image: radial-gradient(circle, var(--ink) 0.8px, transparent 1px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left bottom 4px;}
+.c2{background-image: radial-gradient(circle, var(--ink) 1.1px, transparent 1.3px); background-size: 6px 6px; background-repeat: repeat-x; background-position: left bottom 4px;}
+.c3{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 40% 3px; background-repeat: no-repeat; background-position: center bottom 4px;}
+.c4{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 70% 1px; background-repeat: no-repeat; background-position: center bottom 4px;}
+.c5{background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink)); background-size: 100% 1px, 100% 1px; background-repeat: no-repeat; background-position: left bottom 4px, left bottom 7px;}
+.c6{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 80% 2px; background-repeat: no-repeat; background-position: center bottom 4px;}
+.c7{background-image: radial-gradient(circle, #2563eb 1px, transparent 1.2px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left bottom 4px;}
+.c8{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 60% 2px; background-repeat: no-repeat; background-position: center bottom 4px;}
+.c9{background-image: radial-gradient(circle, var(--ink) 0.9px, transparent 1.1px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left top 2px;}
+.c10{background-image: radial-gradient(circle, var(--ink) 2px, transparent 2.2px); background-size: 100% 5px; background-repeat: no-repeat; background-position: center bottom 3px;}
+.c11{position: relative;}.c11::after{content: ""; position: absolute; right: -6px; bottom: 6px; width: 3px; height: 3px; border-radius: 50%; background: var(--ink);}
+.c12{background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink)); background-size: 1.5px 6px, 1.5px 6px; background-repeat: no-repeat; background-position: left bottom 3px, right bottom 3px;}
+  ol { max-width: 70ch; }
+  li { margin: 4px 0; }
+  .note { background: #fff; border: 1px solid #d1d5db; border-radius: 6px; padding: 16px 18px; max-width: 70ch; }
+  .note h2 { font-size: 16px; margin: 0 0 8px; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Dictionary mark — design examples</h1>
+  <p>Each row is the same paragraph. The whole sentence in the middle carries the
+     <b>2px solid read-aloud underline</b> (exactly where the app draws it). Inside that sentence,
+     twelve saved words each carry a different candidate mark.</p>
+  <p>Judge at <b>100%</b> first — that is what a reader actually sees. The 2× and 4× rows are only
+     there to inspect the pixels.</p>
+</header>
+<main>
+
+  <section class="row">
+    <div class="rowhead"><span class="tag">100% — real reading size</span></div>
+    <div class="viewport" style="width:620px">
+      <div class="page" style="font-size:16px; line-height:1.4; width:620px; transform:scale(1); transform-origin:top left">
+        <p>Nobody had told me what the house would feel like once the last of the boxes was gone. The kitchen clock still ticked in the same place, and the stairs still complained under the same step, but the rooms had lost the smell of cooking and the sound of somebody else breathing in the next room. <span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span> For a long time afterwards I could not say whether that was grief or simply the ordinary quiet of a house that had been emptied out, and I decided in the end that it did not matter which.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="rowhead"><span class="tag">2× zoom</span></div>
+    <div class="viewport" style="width:1240px">
+      <div class="page" style="font-size:32px; line-height:1.4; width:620px; transform:scale(2); transform-origin:top left">
+        <p>Nobody had told me what the house would feel like once the last of the boxes was gone. The kitchen clock still ticked in the same place, and the stairs still complained under the same step, but the rooms had lost the smell of cooking and the sound of somebody else breathing in the next room. <span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span> For a long time afterwards I could not say whether that was grief or simply the ordinary quiet of a house that had been emptied out, and I decided in the end that it did not matter which.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="row">
+    <div class="rowhead"><span class="tag">4× zoom</span></div>
+    <div class="viewport" style="width:2480px">
+      <div class="page" style="font-size:64px; line-height:1.4; width:620px; transform:scale(4); transform-origin:top left">
+        <p>Nobody had told me what the house would feel like once the last of the boxes was gone. The kitchen clock still ticked in the same place, and the stairs still complained under the same step, but the rooms had lost the smell of cooking and the sound of somebody else breathing in the next room. <span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span> For a long time afterwards I could not say whether that was grief or simply the ordinary quiet of a house that had been emptied out, and I decided in the end that it did not matter which.</p>
+      </div>
+    </div>
+  </section>
+
+<h2 style="font-size:16px;margin:34px 0 8px">Candidates</h2>
+<ol>
+        <li><b>Fine dots</b> — 1px dots, 3px apart, 4px above the read-aloud line</li>
+        <li><b>Coarse dots</b> — 2px dots with wide 6px gaps</li>
+        <li><b>Short thick dash</b> — heavy 3px bar under the middle 40% of the word</li>
+        <li><b>Long thin dash</b> — 70% width, 1px — a whisper of a line</li>
+        <li><b>Double rule</b> — two 1px rules, 3px apart</li>
+        <li><b>Gapped rule</b> — 2px rule with a gap at each end</li>
+        <li><b>Accent dots</b> — same as fine dots but in accent blue</li>
+        <li><b>Middle marker</b> — 2px bar under the middle 60% only</li>
+        <li><b>Overline dots</b> — dots above the word instead of below</li>
+        <li><b>Single dot below</b> — one 4px dot centred under the word</li>
+        <li><b>Footnote dot</b> — no line at all — a small dot after the word</li>
+        <li><b>End ticks</b> — two short vertical ticks, one at each end of the word</li>
+</ol>
+
+<div class="note">
+  <h2>Recommendation</h2>
+  <p>At 100% size, anything that is a <i>horizontal rule</i> — dots, dashes, double rules, gapped
+     rules — still reads as a second underline because it lives in the same 5px band as the
+     read-aloud line. The two that survive at reading size are the ones that are not a rule at all:
+     the <b>footnote dot</b> after the word and the <b>accent dots</b>. The footnote dot is the
+     safest (no colour decision, no collision with the read-aloud line, works in vertical writing
+     modes unchanged); accent dots are the most visible if a colour is acceptable.</p>
+  <p>The full constraint list is in <code>README.md</code>.</p>
+</div>
+</main>
+</body>
+</html>
