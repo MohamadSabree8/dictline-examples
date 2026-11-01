@@ -3,111 +3,389 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dictionary mark — design examples</title>
+<title>Dictionary mark — candidates in context</title>
 <style>
-  :root { --ink: #212529; --page: #ffffff; --muted: #6b7280; }
-  * { box-sizing: border-box; }
-  body { margin: 0; background: #f3f4f6; color: var(--ink);
-         font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-  header { padding: 28px 24px 12px; max-width: 900px; margin: 0 auto; }
-  h1 { font-size: 22px; margin: 0 0 6px; }
-  header p { margin: 4px 0; color: #374151; max-width: 70ch; }
-  main { max-width: 900px; margin: 0 auto; padding: 0 24px 60px; }
-  .row { margin: 22px 0 30px; }
-  .rowhead { margin-bottom: 8px; }
-  .tag { font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-  .viewport { background: var(--page); border: 1px solid #d1d5db; border-radius: 6px;
-              overflow: hidden; max-width: 100%; }
-  .page { padding: 18px 20px; font-family: Literata, Georgia, "Times New Roman", serif;
-          color: var(--ink); text-align: justify; }
-  .page p { margin: 0; }
-  /* the read-aloud sentence: 2px solid, at the bottom of the inline content box */
-  .ral { border-bottom: 2px solid var(--ink); }
-  /* dictionary marks are drawn on the inline content box, like the real 24px decoration box */
-  .dw { position: relative; }
-  .c1{background-image: radial-gradient(circle, var(--ink) 0.8px, transparent 1px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left bottom 4px;}
-.c2{background-image: radial-gradient(circle, var(--ink) 1.1px, transparent 1.3px); background-size: 6px 6px; background-repeat: repeat-x; background-position: left bottom 4px;}
-.c3{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 40% 3px; background-repeat: no-repeat; background-position: center bottom 4px;}
-.c4{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 70% 1px; background-repeat: no-repeat; background-position: center bottom 4px;}
-.c5{background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink)); background-size: 100% 1px, 100% 1px; background-repeat: no-repeat; background-position: left bottom 4px, left bottom 7px;}
-.c6{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 80% 2px; background-repeat: no-repeat; background-position: center bottom 4px;}
-.c7{background-image: radial-gradient(circle, #2563eb 1px, transparent 1.2px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left bottom 4px;}
-.c8{background-image: linear-gradient(var(--ink), var(--ink)); background-size: 60% 2px; background-repeat: no-repeat; background-position: center bottom 4px;}
-.c9{background-image: radial-gradient(circle, var(--ink) 0.9px, transparent 1.1px); background-size: 3px 3px; background-repeat: repeat-x; background-position: left top 2px;}
-.c10{background-image: radial-gradient(circle, var(--ink) 2px, transparent 2.2px); background-size: 100% 5px; background-repeat: no-repeat; background-position: center bottom 3px;}
-.c11{position: relative;}.c11::after{content: ""; position: absolute; right: -6px; bottom: 6px; width: 3px; height: 3px; border-radius: 50%; background: var(--ink);}
-.c12{background-image: linear-gradient(var(--ink), var(--ink)), linear-gradient(var(--ink), var(--ink)); background-size: 1.5px 6px, 1.5px 6px; background-repeat: no-repeat; background-position: left bottom 3px, right bottom 3px;}
-  ol { max-width: 70ch; }
-  li { margin: 4px 0; }
-  .note { background: #fff; border: 1px solid #d1d5db; border-radius: 6px; padding: 16px 18px; max-width: 70ch; }
-  .note h2 { font-size: 16px; margin: 0 0 8px; }
-  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; }
+:root {
+  --ink: #1f1c18;
+  --paper: #fbf8f1;
+  --accent: #c4471c;
+  --muted: #6b645a;
+  --rule: #d9d2c4;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #ece8df;
+  color: var(--ink);
+  font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+.page { max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
+h1 { font-size: 24px; margin: 0 0 4px; }
+h2 { font-size: 18px; margin: 40px 0 12px; }
+p.lede, p.spec, .geo-note { color: var(--muted); margin: 0 0 12px; }
+code { font: 13px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+
+/* ---------- Reader text: the device's body style ---------- */
+.reader {
+  /* Literata if installed; otherwise the closest platform serif. */
+  font-family: Literata, "Noto Serif", Georgia, "Times New Roman", serif;
+  font-size: 16px;
+  line-height: 1.4;
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 400;
+}
+.sheet {
+  max-width: calc(34em + 66px);
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 28px 32px;
+}
+.sheet p { margin: 0; max-width: 34em; }
+
+/* Read-aloud: 2px solid, drawn from the content-box bottom (baseline + 5px) downward. */
+.ra {
+  text-decoration-line: underline;
+  text-decoration-style: solid;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 0.125em;
+  text-underline-offset: 0.3125em;
+  text-decoration-skip-ink: none;
+}
+/* Decorations skip atomic inlines, so under a marked word the same 2px line is drawn on the
+   baseline anchor (0.5px overlap each side hides anti-aliasing seams). Not part of the mark. */
+.ra .w > i::before {
+  content: "";
+  position: absolute;
+  left: calc(-0.5 * var(--px)); right: calc(-0.5 * var(--px));
+  top: calc(5 * var(--px));
+  height: calc(2 * var(--px));
+  background: currentColor;
+}
+
+/*
+  Device geometry, independent of the fallback font's metrics:
+  .w is an inline grid; <i> is a zero-height block baseline-aligned with the text, so its
+  top edge IS the baseline. <b> is the mark div: 24px tall, top at baseline − 19px,
+  bottom at baseline + 5px (the content-box bottom). All lengths in em via --px (1/16em).
+*/
+.w { display: inline-grid; position: relative; --px: 0.0625em; }
+.w > span, .w > i { grid-area: 1 / 1; align-self: baseline; }
+.w > i { display: block; height: 0; position: relative; font-style: normal; }
+.w b {
+  position: absolute; left: 0; right: 0;
+  top: calc(-19 * var(--px));
+  height: calc(24 * var(--px));
+  display: block;
+  color: var(--ink);
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+/* Band available to the mark: y 19–24 inside <b> (baseline → read-aloud line). */
+
+/* 1 — control: today's 2px dashed rule at the box bottom */
+.c1 b { border-bottom: calc(2 * var(--px)) dashed currentColor; }
+
+/* 2 — fine dots */
+.c2 b {
+  background-image: linear-gradient(90deg, currentColor calc(1 * var(--px)), transparent 0);
+  background-size: calc(3 * var(--px)) calc(1 * var(--px));
+  background-position: 0 calc(20 * var(--px));
+  background-repeat: repeat-x;
+}
+
+/* 3 — double hairline */
+.c3 b {
+  background-image: linear-gradient(currentColor, currentColor), linear-gradient(currentColor, currentColor);
+  background-size: 100% calc(1 * var(--px));
+  background-position: 0 calc(19 * var(--px)), 0 calc(21 * var(--px));
+}
+
+/* 4 — hairline, gap at each end */
+.c4 b {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 60% calc(1 * var(--px));
+  background-position: 50% calc(20 * var(--px));
+}
+
+/* 5 — square dots */
+.c5 b {
+  background-image: linear-gradient(90deg, transparent calc(1.5 * var(--px)), currentColor 0,
+                                    currentColor calc(3.5 * var(--px)), transparent 0);
+  background-size: calc(5 * var(--px)) calc(2 * var(--px));
+  background-position: 0 calc(20 * var(--px));
+  background-repeat: space no-repeat;
+}
+
+/* 6 and 12 — coarse round dots */
+.c6 b, .c12 b {
+  background-image: radial-gradient(circle closest-side, currentColor 72%, transparent 100%);
+  background-size: calc(6 * var(--px)) calc(2.5 * var(--px));
+  background-position: 0 calc(19.5 * var(--px));
+  background-repeat: space no-repeat;
+}
+.c12 b { color: var(--accent); }
+
+/* 7 — highlighter tick */
+.c7 b {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 40% calc(2.5 * var(--px));
+  background-position: 0 calc(19.5 * var(--px));
+}
+
+/* 8 — corner brackets */
+.c8 b::before, .c8 b::after {
+  content: "";
+  position: absolute;
+  top: calc(19 * var(--px));
+  width: calc(4 * var(--px));
+  height: calc(3 * var(--px));
+  border-bottom: calc(1.5 * var(--px)) solid currentColor;
+}
+.c8 b::before { left: 0; border-left: calc(1.5 * var(--px)) solid currentColor; }
+.c8 b::after { right: 0; border-right: calc(1.5 * var(--px)) solid currentColor; }
+
+/* 9 — three-dot cluster */
+.c9 b {
+  background-image:
+    radial-gradient(circle closest-side, currentColor 72%, transparent 100%),
+    radial-gradient(circle closest-side, currentColor 72%, transparent 100%),
+    radial-gradient(circle closest-side, currentColor 72%, transparent 100%);
+  background-size: calc(2.5 * var(--px)) calc(2.5 * var(--px));
+  background-position:
+    calc(50% - 4.5 * var(--px)) calc(19.5 * var(--px)),
+    50% calc(19.5 * var(--px)),
+    calc(50% + 4.5 * var(--px)) calc(19.5 * var(--px));
+}
+
+/* 10 — single centred dot */
+.c10 b {
+  background-image: radial-gradient(circle closest-side, currentColor 72%, transparent 100%);
+  background-size: calc(3 * var(--px)) calc(3 * var(--px));
+  background-position: 50% calc(19.5 * var(--px));
+}
+
+/* 11 — wedge */
+.c11 b::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: calc(19 * var(--px));
+  transform: translateX(-50%);
+  border-style: solid;
+  border-color: transparent transparent currentColor;
+  border-width: 0 calc(3.5 * var(--px)) calc(3 * var(--px));
+}
+
+/* ---------- Gallery chrome ---------- */
+.legend { list-style: none; margin: 0; padding: 0; background: #fff; border: 1px solid var(--rule); border-radius: 6px; }
+.legend li {
+  display: grid;
+  grid-template-columns: 32px 110px minmax(180px, 1.1fr) 84px 2fr;
+  gap: 12px; align-items: baseline;
+  padding: 8px 14px; border-top: 1px solid #eee8dc;
+}
+.legend li:first-child { border-top: 0; }
+.lw { font-family: Georgia, serif; font-style: italic; }
+.ln { font-weight: 600; }
+.lnote { color: var(--muted); font-size: 14px; }
+.n {
+  display: inline-block; min-width: 24px; text-align: center;
+  font-weight: 700; font-size: 13px; color: #fff; background: var(--ink); border-radius: 12px; padding: 1px 6px;
+}
+.v { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.v.no { color: #a3271b; }
+.v.weak { color: #9a6a00; }
+.v.maybe { color: #2f5f9e; }
+.v.good { color: #1f7a3a; }
+
+.cand { background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 14px 18px 18px; margin: 0 0 14px; }
+.cand header { display: flex; align-items: baseline; gap: 10px; }
+.cand h3 { font-size: 16px; margin: 0; }
+.cand .spec { margin: 4px 0 10px; font-size: 14px; }
+.zooms { display: grid; grid-template-columns: max-content max-content; justify-content: start; align-items: end; gap: 14px 28px; }
+.zooms figure:nth-child(3) { grid-column: 1 / -1; }
+.zooms figure { margin: 0; justify-self: start; }
+.zooms figcaption { font: 600 11px system-ui, sans-serif; color: var(--muted); text-transform: uppercase; letter-spacing: .05em; margin-bottom: 4px; }
+.z { background: var(--paper); padding: 2px 6px 4px; border-radius: 3px; white-space: nowrap; }
+.z2 { zoom: 2; }
+.z4 { zoom: 4; }
+
+.rec { background: #fff; border: 1px solid var(--rule); border-radius: 6px; padding: 18px 22px; }
+.rec p, .rec ul { margin: 0 0 10px; }
+.rec li { margin-bottom: 4px; }
 </style>
 </head>
 <body>
-<header>
-  <h1>Dictionary mark — design examples</h1>
-  <p>Each row is the same paragraph. The whole sentence in the middle carries the
-     <b>2px solid read-aloud underline</b> (exactly where the app draws it). Inside that sentence,
-     twelve saved words each carry a different candidate mark.</p>
-  <p>Judge at <b>100%</b> first — that is what a reader actually sees. The 2× and 4× rows are only
-     there to inspect the pixels.</p>
-</header>
-<main>
+<div class="page">
 
-  <section class="row">
-    <div class="rowhead"><span class="tag">100% — real reading size</span></div>
-    <div class="viewport" style="width:620px">
-      <div class="page" style="font-size:16px; line-height:1.4; width:620px; transform:scale(1); transform-origin:top left">
-        <p>Nobody had told me what the house would feel like once the last of the boxes was gone. The kitchen clock still ticked in the same place, and the stairs still complained under the same step, but the rooms had lost the smell of cooking and the sound of somebody else breathing in the next room. <span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span> For a long time afterwards I could not say whether that was grief or simply the ordinary quiet of a house that had been emptied out, and I decided in the end that it did not matter which.</p>
-      </div>
-    </div>
-  </section>
+<h1>Dictionary mark: candidates in context</h1>
+<p class="lede">
+  Body text is 16px serif with line-height 1.4. The sentence being read aloud has the fixed 2px solid underline,
+  drawn from the content-box bottom (baseline&nbsp;+&nbsp;5px) downward. Each numbered word in that sentence is a saved
+  dictionary word with a different candidate mark. Every mark is pure CSS on an empty 24px box whose baseline is
+  19px from the top, and stays in the 5px band between the baseline and the read-aloud line. Sizes are in em, so
+  they scale with the reader’s font size. Literata isn’t bundled (no external fonts), so a platform serif stands
+  in. The mark geometry is pinned to the baseline either way.
+</p>
 
-  <section class="row">
-    <div class="rowhead"><span class="tag">2× zoom — the marked sentence only</span></div>
-    <div class="viewport" style="width:1240px">
-      <div class="page" style="font-size:32px; line-height:1.4; width:620px; transform:scale(2); transform-origin:top left">
-        <p><span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span></p>
-      </div>
-    </div>
-  </section>
+<h2>At reading size (100%)</h2>
+<div class="sheet reader">
+<p>The tide had gone out in the night, and by morning the harbour at Penhallow was a field of grey mud stitched with the bright ribs of stranded boats. Mara walked the length of the sea wall twice before she found the nerve to go down the slipway, her boots slithering on the weed. <span class="ra">Her <span class="w c1"><span>grandfather</span><i><b></b></i></span> had always said that a <span class="w c2"><span>quiet</span><i><b></b></i></span> <span class="w c3"><span>estuary</span><i><b></b></i></span> keeps its <span class="w c4"><span>secrets</span><i><b></b></i></span> <span class="w c5"><span>badly</span><i><b></b></i></span>, <span class="w c6"><span>giving</span><i><b></b></i></span> them up to <span class="w c7"><span>anyone</span><i><b></b></i></span> <span class="w c8"><span>patient</span><i><b></b></i></span> enough to wait for the <span class="w c9"><span>lowest</span><i><b></b></i></span> <span class="w c10"><span>spring</span><i><b></b></i></span> tide and <span class="w c11"><span>stubborn</span><i><b></b></i></span> enough to dig through the cold, <span class="w c12"><span>sucking</span><i><b></b></i></span> silt.</span> She had brought his old spade, a torch she would not need until dusk, and a paper bag of sandwiches she already knew she would not eat. Behind her, somewhere up in the village, a dog barked at nothing and was told to hush.</p>
+</div>
 
-  <section class="row">
-    <div class="rowhead"><span class="tag">4× zoom — the marked sentence only</span></div>
-    <div class="viewport" style="width:2480px">
-      <div class="page" style="font-size:64px; line-height:1.4; width:620px; transform:scale(4); transform-origin:top left">
-        <p><span class="ral"><span class="dw c9">After</span> school I spent <span class="dw c5">whole</span> <span class="dw c4">evenings</span> in room, <span class="dw c8">sorting</span> through the <span class="dw c1">box</span> of <span class="dw c6">photographs</span> my <span class="dw c11">mother</span> <span class="dw c2">kept</span> under <span class="dw c10">bed,</span> until <span class="dw c3">light</span> <span class="dw c7">faded</span> <span class="dw c12">and</span> everything went grey.</span></p>
-      </div>
-    </div>
-  </section>
-
-<h2 style="font-size:16px;margin:34px 0 8px">Candidates</h2>
-<ol>
-        <li><b>Fine dots</b> — 1px dots, 3px apart, 4px above the read-aloud line</li>
-        <li><b>Coarse dots</b> — 2px dots with wide 6px gaps</li>
-        <li><b>Short thick dash</b> — heavy 3px bar under the middle 40% of the word</li>
-        <li><b>Long thin dash</b> — 70% width, 1px — a whisper of a line</li>
-        <li><b>Double rule</b> — two 1px rules, 3px apart</li>
-        <li><b>Gapped rule</b> — 2px rule with a gap at each end</li>
-        <li><b>Accent dots</b> — same as fine dots but in accent blue</li>
-        <li><b>Middle marker</b> — 2px bar under the middle 60% only</li>
-        <li><b>Overline dots</b> — dots above the word instead of below</li>
-        <li><b>Single dot below</b> — one 4px dot centred under the word</li>
-        <li><b>Footnote dot</b> — no line at all — a small dot after the word</li>
-        <li><b>End ticks</b> — two short vertical ticks, one at each end of the word</li>
+<h2>Legend</h2>
+<ol class="legend">
+<li><span class="n">1</span><span class="lw">grandfather</span><span class="ln">Today’s 2px dashed rule (control)</span><span class="v no">reject</span><span class="lnote">Fused with the read-aloud line into one thick double rule, exactly as reported. Kept only as a baseline.</span></li>
+<li><span class="n">2</span><span class="lw">quiet</span><span class="ln">Fine dots, 1px every 3px</span><span class="v no">reject</span><span class="lnote">At 100% the dots blur into a faint grey second line just above the solid one. The detail only shows at 4x.</span></li>
+<li><span class="n">3</span><span class="lw">estuary</span><span class="ln">Double hairline</span><span class="v no">reject</span><span class="lnote">Two hairlines plus the solid rule make three stripes in 7px, which reads as one heavy smudge. Worse than the control.</span></li>
+<li><span class="n">4</span><span class="lw">secrets</span><span class="ln">Hairline with a gap at each end</span><span class="v no">reject</span><span class="lnote">Still reads as “a second line”, only shorter. The inset ends are too subtle to spot at 100%.</span></li>
+<li><span class="n">5</span><span class="lw">badly</span><span class="ln">Square dots, 2px every 5px</span><span class="v weak">weak</span><span class="lnote">Reads as a dashed line at 100%. Better than 1–4, but still a line rather than a separate mark.</span></li>
+<li><span class="n">6</span><span class="lw">giving</span><span class="ln">Coarse round dots, 2.5px every 6px</span><span class="v maybe">maybe</span><span class="lnote">At 100% you see beads, not a line, so it reads as different from the solid rule. It still runs the full width, so it competes a little.</span></li>
+<li><span class="n">7</span><span class="lw">anyone</span><span class="ln">Highlighter tick under the first 40%</span><span class="v weak">weak</span><span class="lnote">At 100% it reads as the read-aloud rule getting thicker under one syllable, not as a separate mark.</span></li>
+<li><span class="n">8</span><span class="lw">patient</span><span class="ln">Corner brackets ⌊ ⌋ at the word ends</span><span class="v weak">weak</span><span class="lnote">Not a line at all, but at 3px tall the brackets shrink to two specks at 100%. The shape only shows at 2x.</span></li>
+<li><span class="n">9</span><span class="lw">lowest</span><span class="ln">Three-dot cluster, centred</span><span class="v good">shortlist</span><span class="lnote">Not a line. It reads instantly as a mark and is the same size on every word length. It misses the descenders here, but a centred mark can land on one.</span></li>
+<li><span class="n">10</span><span class="lw">spring</span><span class="ln">Single centred dot</span><span class="v maybe">maybe</span><span class="lnote">Distinct at 100% but faint. It can pass for an ink speck, a stray full stop or part of a glyph, as it does here under the “r”.</span></li>
+<li><span class="n">11</span><span class="lw">stubborn</span><span class="ln">Small up-pointing wedge ▲, centred</span><span class="v maybe">maybe</span><span class="lnote">Points at the word and is clearly not a line. It is easier to spot than the single dot, but at 100% it reads as a blob, and the triangle only shows at 2x.</span></li>
+<li><span class="n">12</span><span class="lw">sucking</span><span class="ln">Coarse round dots in accent colour</span><span class="v good">shortlist</span><span class="lnote">Strongest separation of all. The colour alone splits it from the black rule, even for dots this small. Using colour is a design decision.</span></li>
 </ol>
 
-<div class="note">
-  <h2>Recommendation</h2>
-  <p>At 100% size, anything that is a <i>horizontal rule</i> — dots, dashes, double rules, gapped
-     rules — still reads as a second underline because it lives in the same 5px band as the
-     read-aloud line. The two that survive at reading size are the ones that are not a rule at all:
-     the <b>footnote dot</b> after the word and the <b>accent dots</b>. The footnote dot is the
-     safest (no colour decision, no collision with the read-aloud line, works in vertical writing
-     modes unchanged); accent dots are the most visible if a colour is acceptable.</p>
-  <p>The full constraint list is in <code>README.md</code>.</p>
+<h2>Each candidate at 100%, 2x and 4x</h2>
+<section class="cand" id="c1">
+  <header><span class="n">1</span><h3>Today’s 2px dashed rule (control)</h3><span class="v no">reject</span></header>
+  <p class="spec">2px dashed border at the box bottom, touching the read-aloud line.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">Her <span class="w c1"><span>grandfather</span><i><b></b></i></span> had</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">Her <span class="w c1"><span>grandfather</span><i><b></b></i></span> had</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">Her <span class="w c1"><span>grandfather</span><i><b></b></i></span> had</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c2">
+  <header><span class="n">2</span><h3>Fine dots, 1px every 3px</h3><span class="v no">reject</span></header>
+  <p class="spec">1px squares, 3px pitch, 1px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">a <span class="w c2"><span>quiet</span><i><b></b></i></span> estuary</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">a <span class="w c2"><span>quiet</span><i><b></b></i></span> estuary</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">a <span class="w c2"><span>quiet</span><i><b></b></i></span> estuary</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c3">
+  <header><span class="n">3</span><h3>Double hairline</h3><span class="v no">reject</span></header>
+  <p class="spec">Two 1px rules at baseline +0 and +2.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">quiet <span class="w c3"><span>estuary</span><i><b></b></i></span> keeps</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">quiet <span class="w c3"><span>estuary</span><i><b></b></i></span> keeps</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">quiet <span class="w c3"><span>estuary</span><i><b></b></i></span> keeps</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c4">
+  <header><span class="n">4</span><h3>Hairline with a gap at each end</h3><span class="v no">reject</span></header>
+  <p class="spec">1px rule covering the middle 60% of the word, 1px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">its <span class="w c4"><span>secrets</span><i><b></b></i></span> badly,</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">its <span class="w c4"><span>secrets</span><i><b></b></i></span> badly,</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">its <span class="w c4"><span>secrets</span><i><b></b></i></span> badly,</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c5">
+  <header><span class="n">5</span><h3>Square dots, 2px every 5px</h3><span class="v weak">weak</span></header>
+  <p class="spec">2px squares, 5px pitch, evenly spaced, 1px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">secrets <span class="w c5"><span>badly</span><i><b></b></i></span> giving</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">secrets <span class="w c5"><span>badly</span><i><b></b></i></span> giving</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">secrets <span class="w c5"><span>badly</span><i><b></b></i></span> giving</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c6">
+  <header><span class="n">6</span><h3>Coarse round dots, 2.5px every 6px</h3><span class="v maybe">maybe</span></header>
+  <p class="spec">2.5px round dots, 6px pitch, evenly spaced, 0.5px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">badly, <span class="w c6"><span>giving</span><i><b></b></i></span> them</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">badly, <span class="w c6"><span>giving</span><i><b></b></i></span> them</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">badly, <span class="w c6"><span>giving</span><i><b></b></i></span> them</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c7">
+  <header><span class="n">7</span><h3>Highlighter tick under the first 40%</h3><span class="v weak">weak</span></header>
+  <p class="spec">2.5px bar covering the first 40% of the word, 0.5px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">to <span class="w c7"><span>anyone</span><i><b></b></i></span> patient</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">to <span class="w c7"><span>anyone</span><i><b></b></i></span> patient</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">to <span class="w c7"><span>anyone</span><i><b></b></i></span> patient</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c8">
+  <header><span class="n">8</span><h3>Corner brackets ⌊ ⌋ at the word ends</h3><span class="v weak">weak</span></header>
+  <p class="spec">Two 4×3px L-shapes in 1.5px strokes, one at each end of the word.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">anyone <span class="w c8"><span>patient</span><i><b></b></i></span> enough</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">anyone <span class="w c8"><span>patient</span><i><b></b></i></span> enough</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">anyone <span class="w c8"><span>patient</span><i><b></b></i></span> enough</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c9">
+  <header><span class="n">9</span><h3>Three-dot cluster, centred</h3><span class="v good">shortlist</span></header>
+  <p class="spec">Three 2.5px dots, 4.5px apart, centred under the word.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">the <span class="w c9"><span>lowest</span><i><b></b></i></span> spring</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">the <span class="w c9"><span>lowest</span><i><b></b></i></span> spring</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">the <span class="w c9"><span>lowest</span><i><b></b></i></span> spring</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c10">
+  <header><span class="n">10</span><h3>Single centred dot</h3><span class="v maybe">maybe</span></header>
+  <p class="spec">One 3px round dot, centred, 0.5px below the baseline.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">lowest <span class="w c10"><span>spring</span><i><b></b></i></span> tide</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">lowest <span class="w c10"><span>spring</span><i><b></b></i></span> tide</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">lowest <span class="w c10"><span>spring</span><i><b></b></i></span> tide</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c11">
+  <header><span class="n">11</span><h3>Small up-pointing wedge ▲, centred</h3><span class="v maybe">maybe</span></header>
+  <p class="spec">7×3px triangle drawn with borders, tip on the baseline, centred.</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">and <span class="w c11"><span>stubborn</span><i><b></b></i></span> enough</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">and <span class="w c11"><span>stubborn</span><i><b></b></i></span> enough</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">and <span class="w c11"><span>stubborn</span><i><b></b></i></span> enough</span></div></figure>
+  </div>
+</section>
+<section class="cand" id="c12">
+  <header><span class="n">12</span><h3>Coarse round dots in accent colour</h3><span class="v good">shortlist</span></header>
+  <p class="spec">Same geometry as 6, in the accent colour (#c4471c).</p>
+  <div class="zooms reader">
+    <figure><figcaption>100%</figcaption><div class="z z1"><span class="ra">cold, <span class="w c12"><span>sucking</span><i><b></b></i></span> silt.</span></div></figure>
+    <figure><figcaption>2x</figcaption><div class="z z2"><span class="ra">cold, <span class="w c12"><span>sucking</span><i><b></b></i></span> silt.</span></div></figure>
+    <figure><figcaption>4x</figcaption><div class="z z4"><span class="ra">cold, <span class="w c12"><span>sucking</span><i><b></b></i></span> silt.</span></div></figure>
+  </div>
+</section>
+
+<h2>Recommendation</h2>
+<div class="rec">
+<p><strong>Reads as distinct from the solid read-aloud line at 100%:</strong> 12 (accent dots) clearly,
+  9 (three-dot cluster) clearly, 11 (wedge) and 6 (coarse round dots) mostly. 10 (single dot) is distinct but faint:
+  easy to miss, and can pass for an ink speck or a stray full stop.</p>
+<p><strong>Does not:</strong> 1–4 fuse with the read-aloud rule into one heavy double line. 5 reads as a dashed
+  second line and 7 as the rule thickening under one syllable. 8’s brackets are too small to read as brackets.</p>
+<p><strong>The pattern:</strong> anything that runs the full width of the word in this 5px band joins the read-aloud rule,
+  whatever its weight or dash. What works is a short, centred mark (9, 10, 11) or a colour change (12). Spacing
+  tweaks on a full-width rule do not.</p>
+<ul>
+  <li><strong>Shortlist 9, the three-dot cluster.</strong> It is the best text-colour option: unmistakably a mark,
+    the same size on every word length, and the dots go down the side unchanged in vertical writing.</li>
+  <li><strong>Shortlist 12, accent dots,</strong> if colour is acceptable. It is the strongest separation. Colour
+    can also go on 9 (an accent three-dot cluster), which would likely be the most legible of all.</li>
+  <li><strong>Keep 11, the wedge, as the alternative to 9.</strong> It points at the word, but its shape only shows
+    at 2x or more.</li>
+</ul>
+<p class="geo-note">Caveats: this was judged in Chrome at 2x device pixel ratio with a fallback serif, not Literata
+  on the device, so check the shortlist there. Any mark in this band crosses the descenders of g, j, p, q, y
+  (see the g’s in 6 and 12), and a centred mark (9–11) will sometimes land on one. Ideas that leave the band (superscript badge, dots
+  above the word) are not shown. A dot after the word in the band reads as a full stop, and a wavy rule reads
+  as a spell-check error, so both were dropped.</p>
 </div>
-</main>
+
+</div>
 </body>
 </html>
