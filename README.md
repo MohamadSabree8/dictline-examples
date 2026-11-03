@@ -70,3 +70,8 @@ A single self-contained `index.html` gallery that renders every candidate **in r
 
 Everything inline in the one file: inline `<style>`, no external fonts, no network requests, no
 images. It must render identically in Chrome and Android WebView.
+
+## Pages
+
+- `index.html`: the dictionary mark candidates gallery.
+- `small-text-marks.html`: how the approved dots behave at the smallest text size, where a per book filter could go on the saved words panel, and what a release build changes.
